@@ -9,7 +9,7 @@
 					  <tbody>
 					    <!-- <tr class="table-primary"> -->
 					    <tr v-for="coin in FilteredCoins">
-					      <td>{{coin.name}} ({{coin.symbol}})</td>
+					      <td><a href="#">{{coin.name}} ({{coin.symbol}})</a></td>
 					    </tr>
 					  </tbody>
 					</table>
@@ -18,8 +18,6 @@
 		</div>
 	</div>
 </template>
-
-</script>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
