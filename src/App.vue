@@ -1,20 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <section>
+      <div class="container">
+        <h1>Top 100 Cryptocurrency Comparison</h1>
+        <div class="row">
+          <CoinsList v-bind:info="info"/>
+          <div class="w-100 d-lg-none"><br></div>
+          <CoinsList v-bind:info="info"/>
+        </div>
+        <br>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </section>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { Component, Vue } from 'vue-property-decorator';
+import CoinsList from './components/CoinsList.vue';
+import axios from 'axios';
 
-export default Vue.extend({
-  name: 'app',
+@Component({
   components: {
-    HelloWorld,
+    CoinsList,
   },
-});
+})
+export default class App extends Vue {
+  private info: any[] = [];
+  private mounted() {
+    axios
+      .get('https://api.coinlore.com/api/tickers/?start=0&limit=100')
+      .then((response) => (this.info = response.data.data));
+  }
+}
 </script>
 
 <style>
