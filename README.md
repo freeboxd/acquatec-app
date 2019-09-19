@@ -1,29 +1,16 @@
 # acquatec-app
 
-## Project setup
+## Instale o projeto
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Rode o servidor
 ```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
+yarn serve
 ```
 
-### Run your tests
+### Teste a aplicação em
 ```
-yarn run test
+localhost:8080
 ```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
