@@ -2,13 +2,12 @@
 	<div class="col-sm">
 		<div class="card">
 			<div class="card-body">
-				{{currentCoin}}
-				<!-- <div class="coin-info">
-					<h3 style="font-weight: bold">#{{currentCoin.rank}} {{currentCoin.name}} ({{currentCoin.symbol}})</h3>
-					<span>Price (USD): ${{currentCoin.price_usd}}</span>
+				<div class="coin-info">
+					<h3 style="font-weight: bold">#{{info[currId].rank}} {{info[currId].name}} ({{info[currId].symbol}})</h3>
+					<span>Price (USD): ${{info[currId].price_usd}}</span>
 					<br>
-					<span>{{currentCoin.price_btc}} BTC</span>
-				</div> -->
+					<span>{{info[currId].price_btc}} BTC</span>
+				</div>
 				<br>
 				<input type="text" class="form-control" v-model="searchQuery" placeholder="Search for a coin">
 				<br>
@@ -16,7 +15,7 @@
 					<table class="table table-sm table-hover">
 					  <tbody>
 					    <tr v-for="coin in FilteredCoins">
-					      <td><a href="#" v-on:click="setCoin(coin.id)" v-bind:key="coin.nameid">{{coin.name}} ({{coin.symbol}})</a></td>
+					      <td><a href="#" v-on:click="currId=coin.rank-1" v-bind:key="coin.nameid">{{coin.name}} ({{coin.symbol}})</a></td>
 					    </tr>
 					  </tbody>
 					</table>
@@ -33,17 +32,13 @@ import axios from 'axios';
 @Component
 export default class CoinsList extends Vue {
   public info: any[] = [];
-  public currentCoin: object = {};
+  public currId: number = 0;
 
   public mounted() {
     axios
       .get('https://api.coinlore.com/api/tickers/?start=0&limit=100')
       .then((response) => (this.info = response.data.data));
-      this.currentCoin = Object.assign(this.info[0]);
-  }
-
-  public set setCoin(id: number) {
-  	this.currentCoin = Object.assign(this.info[id]);
+      
   }
 
   public searchQuery: string = '';
