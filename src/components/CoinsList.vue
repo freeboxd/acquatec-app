@@ -2,14 +2,9 @@
 	<div class="col-sm">
 		<div class="card">
 			<div class="card-body">
-				<div class="coin-info">
-					<h3 style="font-weight: bold">#{{info[currId].rank}} {{info[currId].name}} ({{info[currId].symbol}})</h3>
-					<span>Price (USD): ${{info[currId].price_usd}}</span>
-					<br>
-					<span>{{info[currId].price_btc}} BTC</span>
-				</div>
+				<CoinDetail v-bind:info="info" v-bind:currId="currId"></CoinDetail>
 				<br>
-				<input type="text" class="form-control" v-model="searchQuery" placeholder="Search for a coin">
+				<input type="text" class="form-control" v-model="searchQuery" placeholder="Search for a cryptocurrency">
 				<br>
 				<div class="movielist">
 					<table class="table table-sm table-hover">
@@ -28,8 +23,13 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from 'axios';
+import CoinDetail from './CoinDetail.vue';
 
-@Component
+@Component({
+  components: {
+    CoinDetail,
+  },
+})
 export default class CoinsList extends Vue {
   public info: any[] = [];
   public currId: number = 0;
@@ -38,7 +38,6 @@ export default class CoinsList extends Vue {
     axios
       .get('https://api.coinlore.com/api/tickers/?start=0&limit=100')
       .then((response) => (this.info = response.data.data));
-      
   }
 
   public searchQuery: string = '';
